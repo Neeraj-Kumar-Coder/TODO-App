@@ -1,0 +1,64 @@
+.task-card {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    border-radius: 0.5rem;
+    background-color: aliceblue;
+}
+
+.task-card > div:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-card > div:nth-child(1) > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.task-card > div:nth-child(1) > div > img {
+    cursor: pointer;
+    width: 20px;
+    transition: all 150ms linear;
+}
+
+.task-card > div:nth-child(1) > div > img:hover {
+    transform: scale(1.1);
+}
+
+.task-card > div:nth-child(1) > p {
+    font-family: "secondary-font", "Courier New", Courier, monospace;
+    font-size: 0.9rem;
+}
+
+.task-card > p {
+    font-family: "primary-font", "Courier New", Courier, monospace;
+    font-size: 2rem;
+    width: 70%;
+}
+
+.task-card > div:nth-child(3) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-card > div:nth-child(3) > span {
+    font-family: "secondary-font", "Courier New", Courier, monospace;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.status-change-button {
+    padding: 0.3rem 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.3rem;
+    font-size: 1.1rem;
+    opacity: 1 !important;
+    cursor: pointer;
+}

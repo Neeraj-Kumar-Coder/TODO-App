@@ -1,0 +1,23 @@
+.task-content {
+    margin-left: calc(var(--navbar-width) + calc(2 * var(--navbar-padding-x)));
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr;
+    grid-auto-flow: dense;
+    gap: 0.5rem;
+}
+
+.task-status-title {
+    font-family: "primary-font", "Courier New", Courier, monospace;
+}
+
+.create-task-button {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 997;
+
+    background-color: greenyellow;
+    padding: 1rem 1.5rem;
+    border-radius: 3rem;
+    cursor: pointer;
+}

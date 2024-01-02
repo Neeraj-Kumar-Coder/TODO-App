@@ -1,0 +1,15 @@
+.toast {
+    position: fixed;
+    z-index: 10000;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.7rem 1rem;
+    border-radius: 1rem;
+    background-color: red;
+}
+
+.toast > p {
+    font-family: "secondary-font", "Courier New", Courier, monospace;
+    font-size: 1.1rem;
+}

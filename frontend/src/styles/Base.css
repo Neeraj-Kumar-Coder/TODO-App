@@ -1,0 +1,48 @@
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: "primary-font";
+}
+
+/* Defining Base Font */
+@font-face {
+    font-family: "primary-font";
+    src: url("../fonts/EuropaGroteskSH-Med.otf");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "secondary-font";
+    src: url("../fonts/HVD Fonts - BrandonText-Bold.otf");
+    font-display: swap;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "secondary-font";
+    src: url("../fonts/HVD Fonts - BrandonText-Light.otf");
+    font-display: swap;
+    font-weight: lighter;
+}
+
+@font-face {
+    font-family: "secondary-font";
+    src: url("../fonts/HVD Fonts - BrandonText-Regular.otf");
+    font-display: swap;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "secondary-font";
+    src: url("../fonts/HVD Fonts - BrandonText-Thin.otf");
+    font-display: swap;
+    font-weight: 100;
+}
+
+:root {
+    --navbar-width: 9rem;
+    --navbar-padding-x: 1rem;
+}
