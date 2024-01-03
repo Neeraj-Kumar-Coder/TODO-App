@@ -70,10 +70,6 @@ export const getStatusColumnButtonText = (statusColumn) => {
     }
 }
 
-export const removeATask = (tasks, task) => {
-    return tasks.filter((item) => item !== task);
-}
-
 export const changeStatus = (task, currentStatus) => {
     let nextStatus = currentStatus;
 
@@ -88,4 +84,10 @@ export const changeStatus = (task, currentStatus) => {
 
     task.status = nextStatus;
     return task;
+}
+
+export const isDateLessThanToday = (isoDate) => {
+    const passedDate = new Date(isoDate);
+    const today = new Date();
+    return passedDate < today;
 }

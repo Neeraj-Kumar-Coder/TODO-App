@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/TaskStatusTitle.css';
 import { motion } from 'framer-motion';
-import { fadeInVariant } from '../variants/motionVariants';
+import { fadeSlideInFromLeftVariant } from '../variants/motionVariants';
 
 const TaskStatusTitle = ({ title, statusColumn }) => {
     let statusImageLink = "";
@@ -20,7 +20,7 @@ const TaskStatusTitle = ({ title, statusColumn }) => {
             break;
     }
     return (
-        <motion.div variants={fadeInVariant} className='task-status-title secondary-glassify' style={{ gridColumn: statusColumn }}>
+        <motion.div variants={fadeSlideInFromLeftVariant} className='task-status-title secondary-glassify' style={{ gridColumn: statusColumn }}>
             <span>{title}</span>
             <img src={statusImageLink} alt="status-icon" />
         </motion.div>

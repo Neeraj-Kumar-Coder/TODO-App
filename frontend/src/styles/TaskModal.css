@@ -74,4 +74,13 @@
     border-radius: 0.5rem;
     font-size: 1.1rem;
     cursor: pointer;
+    transition: all 150ms linear;
+}
+
+.task-modal-button:hover {
+    transform: scale(1.1);
+}
+
+.task-modal-button:active {
+    transform: scale(0.9);
 }

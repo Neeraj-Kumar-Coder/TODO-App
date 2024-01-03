@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import TaskContext from './taskContext';
 import axios from 'axios';
-import { changeStatus, removeATask } from '../methods/helperMethods';
+import { changeStatus } from '../methods/helperMethods';
 
 const TaskState = (props) => {
     const [tasks, setTasks] = useState();
@@ -46,7 +46,7 @@ const TaskState = (props) => {
 
     const deleteATask = (task) => {
         deleteTaskById(task);
-        setTasks(removeATask(tasks, task));
+        setTasks((prev) => prev.filter((current) => current !== task));
     }
 
     const createTask = async (task) => {

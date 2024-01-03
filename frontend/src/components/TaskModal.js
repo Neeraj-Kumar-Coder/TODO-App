@@ -10,6 +10,7 @@ const TaskModal = ({ forCreation }) => {
     const descriptionRef = useRef();
     const startDateRef = useRef();
     const endDateRef = useRef();
+    const overlay = useRef();
 
     useEffect(() => {
         titleRef.current.value = initialTaskConfig.initialTitle;
@@ -63,7 +64,7 @@ const TaskModal = ({ forCreation }) => {
 
     return (
         <>
-            <motion.div initial="hidden" animate="visible" exit="exit" variants={fadeInVariant} className='task-modal-backdrop' onClick={clearAndCloseModal}></motion.div>
+            <motion.div initial="hidden" animate="visible" exit="exit" ref={overlay} variants={fadeInVariant} className='task-modal-backdrop' onClick={clearAndCloseModal}></motion.div>
             <motion.div initial="hidden" animate="visible" exit="exit" variants={modalVariant} className='task-modal secondary-glassify'>
                 <h1>{forCreation ? "Create A New Task" : "Edit Task"}</h1>
 

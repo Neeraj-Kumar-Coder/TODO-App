@@ -18,41 +18,42 @@ function App() {
     async function init() {
       setTasks(await fetchAllTasks());
     }
-
     init();
   }, []);
 
   return (
     <>
-      <Navbar />
-      <AnimatePresence>
-        {showToast && <Toast key="toast-main" message={message} />}
-        {showCreateAndEditModal &&
-          <TaskModal key="task-modal-main" forCreation={forCreation}
-            index={modalIndex}
-            initialTitle={initialTaskConfig.initialTitle}
-            initialDescription={initialTaskConfig.initialDescription}
-            initialStartDate={initialTaskConfig.initialStartDate}
-            initialEndDate={initialTaskConfig.initialEndDate}
-          />}
-        {showViewModal && <ViewModal key="view-modal-main" />}
-      </AnimatePresence>
-
-      <motion.div key="task-content-main" className='task-content' initial="hidden" animate="visible" exit="exit" variants={containerVariant}>
-        <motion.h1 variants={sinkDownVariant} className='task-area-title secondary-glassify'>Track Your Project Progress Here</motion.h1>
-
-        <TaskStatusTitle title={"Todo"} statusColumn={2} />
-        <TaskStatusTitle title={"In progress"} statusColumn={3} />
-        <TaskStatusTitle title={"Completed"} statusColumn={4} />
-
+      {tasks && <>
+        <Navbar />
         <AnimatePresence>
-          {
-            tasks?.map((task, index) => <TaskCard key={task.id} task={task} index={index} />)
-          }
+          {showToast && <Toast key="toast-main" message={message} />}
+          {showCreateAndEditModal &&
+            <TaskModal key="task-modal-main" forCreation={forCreation}
+              index={modalIndex}
+              initialTitle={initialTaskConfig.initialTitle}
+              initialDescription={initialTaskConfig.initialDescription}
+              initialStartDate={initialTaskConfig.initialStartDate}
+              initialEndDate={initialTaskConfig.initialEndDate}
+            />}
+          {showViewModal && <ViewModal key="view-modal-main" />}
         </AnimatePresence>
 
-        <motion.span key="create-task-button-main" className='create-task-button secondary-glassify' variants={fadeSlideInFromLeftVariant} onClick={() => toggleEditModal(true)}>+ Create Task</motion.span>
-      </motion.div>
+        <motion.div key="task-content-main" className='task-content' initial="hidden" animate="visible" exit="exit" variants={containerVariant}>
+          <motion.h1 variants={sinkDownVariant} className='task-area-title secondary-glassify'>Track Your Project Progress Here</motion.h1>
+
+          <TaskStatusTitle title={"Todo"} statusColumn={2} />
+          <TaskStatusTitle title={"In progress"} statusColumn={3} />
+          <TaskStatusTitle title={"Completed"} statusColumn={4} />
+
+          <AnimatePresence mode='wait'>
+            {
+              tasks?.map((task, index) => <TaskCard key={task.id} task={task} index={index} />)
+            }
+          </AnimatePresence>
+
+          <motion.span key="create-task-button-main" className='create-task-button secondary-glassify' variants={fadeSlideInFromLeftVariant} onClick={() => toggleEditModal(true)}>+ Create Task</motion.span>
+        </motion.div>
+      </>}
     </>
   );
 }

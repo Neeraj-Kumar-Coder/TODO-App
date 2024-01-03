@@ -47,7 +47,10 @@ export const riseUpVariant = {
     },
     visible: {
         opacity: 1,
-        y: 0
+        y: 0,
+        transition: {
+            staggerChildren: 0.15
+        }
     }
 }
 

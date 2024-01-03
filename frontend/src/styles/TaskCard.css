@@ -32,6 +32,10 @@
     transform: scale(1.1);
 }
 
+.task-card > div:nth-child(1) > div > img:active {
+    transform: scale(0.9);
+}
+
 .task-card > div:nth-child(1) > p {
     font-family: "secondary-font", "Courier New", Courier, monospace;
     font-size: 0.8rem;
@@ -62,6 +66,15 @@
     border: 1px solid white;
     border-radius: 0.3rem;
     font-size: 1.1rem;
-    opacity: 1 !important;
     cursor: pointer;
+    transition: all 150ms linear;
+}
+
+.status-change-button:hover {
+    background-color: #70aeeb;
+    transform: scale(1.1);
+}
+
+.status-change-button:active {
+    transform: scale(0.9);
 }
