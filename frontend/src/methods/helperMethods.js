@@ -62,9 +62,9 @@ export const getStatusColumnButtonText = (statusColumn) => {
         case 2:
             return "Start Working!";
         case 3:
-            return "Completed The Task?";
+            return "Complete Task";
         case 4:
-            return "Work again!";
+            return "Rework";
         default:
             return "NOT MATCH";
     }

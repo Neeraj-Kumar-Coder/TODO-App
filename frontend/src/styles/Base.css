@@ -7,6 +7,39 @@
     font-family: "primary-font";
 }
 
+body {
+    min-height: 100vh;
+    background-image: url("../../public/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Selection */
+::selection {
+    background-color: #70aeeb;
+    color: white;
+}
+
+/* For Date Picker Input */
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+/* Customizing scroll bar */
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background: #70aeeb;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #70aeeb;
+    border-radius: 1000px;
+}
+
 /* Defining Base Font */
 @font-face {
     font-family: "primary-font";
@@ -45,4 +78,26 @@
 :root {
     --navbar-width: 9rem;
     --navbar-padding-x: 1rem;
+}
+
+/* Glassmorphism */
+.primary-glassify {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(28, 34, 50, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.secondary-glassify {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(41, 50, 73, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.card-glassify {
+    backdrop-filter: blur(7px) saturate(200%);
+    -webkit-backdrop-filter: blur(7px) saturate(200%);
+    background-color: rgba(103, 103, 169, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.125);
 }

@@ -3,9 +3,8 @@
     align-items: center;
     justify-content: flex-start;
     gap: 0.3rem;
-
-    background-color: bisque;
-    padding: 0.5rem;
+    color: white;
+    padding: 0.7rem;
     border-radius: 0.5rem;
     margin-top: 1rem;
 }
@@ -17,4 +16,5 @@
 .task-status-title > img {
     display: inline-block;
     width: 17px;
+    filter: invert(1);
 }

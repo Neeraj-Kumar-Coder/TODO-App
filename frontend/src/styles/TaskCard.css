@@ -1,11 +1,11 @@
 .task-card {
-    padding: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 1rem;
-    border-radius: 0.5rem;
-    background-color: aliceblue;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: white;
 }
 
 .task-card > div:nth-child(1) {
@@ -18,13 +18,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.7rem;
+    gap: 0.5rem;
 }
 
 .task-card > div:nth-child(1) > div > img {
     cursor: pointer;
     width: 20px;
     transition: all 150ms linear;
+    filter: invert(1);
 }
 
 .task-card > div:nth-child(1) > div > img:hover {
@@ -33,7 +34,7 @@
 
 .task-card > div:nth-child(1) > p {
     font-family: "secondary-font", "Courier New", Courier, monospace;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .task-card > p {
@@ -51,12 +52,14 @@
 .task-card > div:nth-child(3) > span {
     font-family: "secondary-font", "Courier New", Courier, monospace;
     font-size: 0.8rem;
+}
+.task-card > div:nth-child(3) > span:nth-child(1) {
     opacity: 0.7;
 }
 
 .status-change-button {
-    padding: 0.3rem 0.5rem;
-    border: 1px solid black;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid white;
     border-radius: 0.3rem;
     font-size: 1.1rem;
     opacity: 1 !important;

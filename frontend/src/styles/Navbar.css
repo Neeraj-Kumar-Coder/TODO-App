@@ -5,23 +5,20 @@
     bottom: 0;
     z-index: 997;
     width: var(--navbar-width);
-    background-color: #f1f1f1;
     height: 100vh;
     padding: 0.5rem var(--navbar-padding-x);
 }
 
 #navbar > span {
-    display: inline-block;
-    margin-top: 0.5rem;
-}
-
-#navbar > span > span {
     font-family: "primary-font", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
         "Helvetica Neue", sans-serif;
+    display: inline-block;
     font-size: 1.7rem;
+    color: white;
 }
 
-#navbar > span > span:nth-child(1) {
-    color: orange;
+#navbar > span:nth-child(1) {
+    display: inline-block;
+    color: #70aeeb;
 }

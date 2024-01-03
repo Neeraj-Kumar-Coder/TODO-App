@@ -3,112 +3,56 @@ import './App.css';
 import './styles/Base.css';
 import TaskStatusTitle from './components/TaskStatusTitle';
 import TaskCard from './components/TaskCard';
-import { useEffect, useState } from 'react';
-import { createNewTask, deleteTaskById, fetchAllTasks, updateTaskById } from './methods/apiCalls';
-import { changeStatus, removeATask } from './methods/helperMethods';
+import { useContext, useEffect } from 'react';
 import TaskModal from './components/TaskModal';
 import Toast from './components/Toast';
+import taskContext from './context/taskContext';
+import ViewModal from './components/ViewModal';
+import { AnimatePresence, motion } from 'framer-motion';
+import { containerVariant, fadeSlideInFromLeftVariant, sinkDownVariant } from './variants/motionVariants';
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [message, setMessage] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [showToast, setShowToast] = useState(false);
-  const [forCreation, setForCreation] = useState(true);
-  const [modalIndex, setModalIndex] = useState(-1);
-  const [initialTaskConfig, setInitialTaskConfig] = useState({ initialTitle: "", initialDescription: "", initialStartDate: "", initialEndDate: "" });
+  const { tasks, setTasks, showToast, message, showCreateAndEditModal, forCreation, modalIndex, initialTaskConfig, fetchAllTasks, toggleEditModal, showViewModal } = useContext(taskContext);
 
   useEffect(() => {
     async function init() {
-      const data = await fetchAllTasks();
-      setTasks(data);
+      setTasks(await fetchAllTasks());
     }
 
     init();
   }, []);
 
-  const methods = {
-    createTask: async (task) => {
-      const newTask = await createNewTask(task);
-
-      const tasksCopy = JSON.parse(JSON.stringify(tasks));
-      tasksCopy.push(newTask);
-      setTasks(tasksCopy);
-    },
-
-    updateTask: (index, newTask) => {
-      updateTaskById(newTask);
-      const tasksCopy = JSON.parse(JSON.stringify(tasks));
-      tasksCopy[index] = newTask;
-      setTasks(tasksCopy);
-    },
-
-    deleteATask: (task) => {
-      deleteTaskById(task);
-      setTasks(removeATask(tasks, task));
-    },
-
-    changeTaskStatus: (task, currentStatus) => {
-      const newTask = changeStatus(task, currentStatus);
-      updateTaskById(newTask);
-
-      const tasksCopy = JSON.parse(JSON.stringify(tasks));
-      const index = tasksCopy.indexOf(task);
-      tasksCopy[index] = newTask;
-      setTasks(tasksCopy);
-    },
-
-    toggleModal: (creation) => {
-      setForCreation(creation);
-      setShowModal(!showModal);
-    },
-
-    showToast: (msg, duration = 3000) => {
-      setMessage(msg);
-      setShowToast(true);
-      setTimeout(() => {
-        setShowToast(false);
-      }, duration);
-    },
-
-    changeModalIndex: (index) => {
-      setModalIndex(index);
-    },
-
-    changeInitialTask: (task) => {
-      setInitialTaskConfig({
-        initialTitle: task.title,
-        initialDescription: task.description,
-        initialStartDate: task.startDate?.slice(0, 10),
-        initialEndDate: task.endDate?.slice(0, 10)
-      });
-    }
-  }
-
   return (
     <>
       <Navbar />
-      {showToast && <Toast message={message} />}
-      {showModal &&
-        <TaskModal forCreation={forCreation}
-          methods={methods}
-          index={modalIndex}
-          initialTitle={initialTaskConfig.initialTitle}
-          initialDescription={initialTaskConfig.initialDescription}
-          initialStartDate={initialTaskConfig.initialStartDate}
-          initialEndDate={initialTaskConfig.initialEndDate}
-        />}
+      <AnimatePresence>
+        {showToast && <Toast key="toast-main" message={message} />}
+        {showCreateAndEditModal &&
+          <TaskModal key="task-modal-main" forCreation={forCreation}
+            index={modalIndex}
+            initialTitle={initialTaskConfig.initialTitle}
+            initialDescription={initialTaskConfig.initialDescription}
+            initialStartDate={initialTaskConfig.initialStartDate}
+            initialEndDate={initialTaskConfig.initialEndDate}
+          />}
+        {showViewModal && <ViewModal key="view-modal-main" />}
+      </AnimatePresence>
 
-      <div className='task-content'>
+      <motion.div key="task-content-main" className='task-content' initial="hidden" animate="visible" exit="exit" variants={containerVariant}>
+        <motion.h1 variants={sinkDownVariant} className='task-area-title secondary-glassify'>Track Your Project Progress Here</motion.h1>
+
         <TaskStatusTitle title={"Todo"} statusColumn={2} />
         <TaskStatusTitle title={"In progress"} statusColumn={3} />
         <TaskStatusTitle title={"Completed"} statusColumn={4} />
 
-        {
-          tasks.map((task, index) => <TaskCard key={task.startDate + index} task={task} methods={methods} index={index} />)
-        }
-      </div>
-      <span className='create-task-button' onClick={() => methods.toggleModal(true)}>+ Create Task</span>
+        <AnimatePresence>
+          {
+            tasks?.map((task, index) => <TaskCard key={task.id} task={task} index={index} />)
+          }
+        </AnimatePresence>
+
+        <motion.span key="create-task-button-main" className='create-task-button secondary-glassify' variants={fadeSlideInFromLeftVariant} onClick={() => toggleEditModal(true)}>+ Create Task</motion.span>
+      </motion.div>
     </>
   );
 }

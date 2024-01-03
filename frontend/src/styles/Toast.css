@@ -6,7 +6,7 @@
     transform: translateX(-50%);
     padding: 0.7rem 1rem;
     border-radius: 1rem;
-    background-color: red;
+    color: white;
 }
 
 .toast > p {
