@@ -41,7 +41,11 @@ const TaskModal = ({ forCreation }) => {
         const endDate = new Date(endDateRef.current.value).toISOString();
 
         const task = { title, description, startDate, endDate };
-        createTask(task);
+        try {
+            createTask(task);
+        } catch (e) {
+            console.error(e);
+        }
         clearAndCloseModal();
     }
 
@@ -58,7 +62,11 @@ const TaskModal = ({ forCreation }) => {
         const endDate = new Date(endDateRef.current.value).toISOString();
 
         const task = { ...tasks[modalIndex], title, description, startDate, endDate };
-        updateTask(modalIndex, task);
+        try {
+            updateTask(modalIndex, task);
+        } catch (e) {
+            console.error(e);
+        }
         clearAndCloseModal();
     }
 

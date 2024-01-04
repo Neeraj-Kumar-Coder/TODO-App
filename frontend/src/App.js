@@ -19,7 +19,13 @@ function App() {
     async function init() {
       setTasks(await fetchAllTasks());
     }
-    init();
+
+    try {
+      init();
+    } catch (e) {
+      console.error(e);
+    }
+
   }, []);
 
   return (
