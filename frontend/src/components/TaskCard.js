@@ -32,17 +32,17 @@ const TaskCard = ({ task, index }) => {
     return (
         <motion.div layout className='task-card card-glassify' variants={riseUpVariant} style={{ gridColumn: statusColumn }}>
             <motion.div>
-                <motion.p variants={riseUpVariant} style={{ color: isDateLessThanToday(endDate) ? "red" : "white" }}>Due: {relativeDate}</motion.p>
+                <motion.p variants={riseUpVariant} style={{ color: statusColumn === 4 ? "lightgreen" : (isDateLessThanToday(endDate) ? "red" : "white") }}>{statusColumn === 4 ? "Achieved" : `Due: ${relativeDate}`}</motion.p>
                 <div>
                     <motion.img variants={riseUpVariant} src="https://img.icons8.com/ios-glyphs/30/visible--v1.png" alt="view--v1" onClick={viewHandler} />
-                    <motion.img variants={riseUpVariant} src="https://img.icons8.com/ios-glyphs/30/edit--v1.png" alt="edit--v1" onClick={() => editATask()} />
+                    {statusColumn < 4 && <motion.img variants={riseUpVariant} src="https://img.icons8.com/ios-glyphs/30/edit--v1.png" alt="edit--v1" onClick={() => editATask()} />}
                     <motion.img variants={riseUpVariant} src="https://img.icons8.com/material-rounded/24/filled-trash.png" alt="filled-trash" onClick={() => deleteATask(task)} />
                 </div>
             </motion.div>
             <motion.p variants={riseUpVariant}>{title}</motion.p>
             <div>
                 <motion.span variants={riseUpVariant}>Created On: {fromDate}</motion.span>
-                <motion.span variants={riseUpVariant} className='status-change-button' onClick={() => { isDateLessThanToday(endDate) ? deadLineExtendNotification() : changeTaskStatus(task, status) }}>{buttonText}</motion.span>
+                <motion.span variants={riseUpVariant} className='status-change-button' onClick={() => { statusColumn !== 4 && isDateLessThanToday(endDate) ? deadLineExtendNotification() : changeTaskStatus(task, status) }}>{buttonText}</motion.span>
             </div>
         </motion.div>
     )

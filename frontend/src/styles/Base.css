@@ -5,6 +5,7 @@
     text-decoration: none;
     list-style: none;
     font-family: "primary-font";
+    box-sizing: border-box;
 }
 
 body {
@@ -77,8 +78,9 @@ body {
 }
 
 :root {
-    --navbar-width: 9rem;
+    --navbar-width: 11rem;
     --navbar-padding-x: 1rem;
+    --grid-gap: 0.5rem;
 }
 
 /* Glassmorphism */

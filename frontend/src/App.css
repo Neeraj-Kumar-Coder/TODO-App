@@ -9,11 +9,11 @@
 }
 
 .task-content {
-    margin-left: calc(var(--navbar-width) + calc(2 * var(--navbar-padding-x)));
+    margin-left: var(--navbar-width);
     display: grid;
     grid-template-columns: 0.5fr 1fr 1fr 1fr 0.5fr;
     grid-auto-flow: dense;
-    gap: 0.5rem;
+    gap: var(--grid-gap);
 }
 
 .task-status-title {

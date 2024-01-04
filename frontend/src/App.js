@@ -5,6 +5,7 @@ import TaskStatusTitle from './components/TaskStatusTitle';
 import TaskCard from './components/TaskCard';
 import { useContext, useEffect } from 'react';
 import TaskModal from './components/TaskModal';
+import Loader from './components/Loader';
 import Toast from './components/Toast';
 import taskContext from './context/taskContext';
 import ViewModal from './components/ViewModal';
@@ -23,9 +24,9 @@ function App() {
 
   return (
     <>
-      {tasks && <>
+      {!tasks ? <Loader /> : <>
         <Navbar />
-        <AnimatePresence>
+        <AnimatePresence mode='wait'>
           {showToast && <Toast key="toast-main" message={message} />}
           {showCreateAndEditModal &&
             <TaskModal key="task-modal-main" forCreation={forCreation}
@@ -45,7 +46,7 @@ function App() {
           <TaskStatusTitle title={"In progress"} statusColumn={3} />
           <TaskStatusTitle title={"Completed"} statusColumn={4} />
 
-          <AnimatePresence mode='wait'>
+          <AnimatePresence>
             {
               tasks?.map((task, index) => <TaskCard key={task.id} task={task} index={index} />)
             }

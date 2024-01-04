@@ -6,6 +6,8 @@
     border-radius: 1rem;
     padding: 1rem;
     color: white;
+    max-width: calc((100vw - var(--navbar-width) - 4 * var(--grid-gap)) / 4);
+    max-height: 12rem;
 }
 
 .task-card > div:nth-child(1) {
@@ -29,11 +31,11 @@
 }
 
 .task-card > div:nth-child(1) > div > img:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) !important;
 }
 
 .task-card > div:nth-child(1) > div > img:active {
-    transform: scale(0.9);
+    transform: scale(0.9) !important;
 }
 
 .task-card > div:nth-child(1) > p {
@@ -45,6 +47,8 @@
     font-family: "primary-font", "Courier New", Courier, monospace;
     font-size: 2rem;
     width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .task-card > div:nth-child(3) {
@@ -72,9 +76,9 @@
 
 .status-change-button:hover {
     background-color: #70aeeb;
-    transform: scale(1.1);
+    transform: scale(1.1) !important;
 }
 
 .status-change-button:active {
-    transform: scale(0.9);
+    transform: scale(0.9) !important;
 }

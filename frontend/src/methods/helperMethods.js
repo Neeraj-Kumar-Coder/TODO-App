@@ -88,6 +88,16 @@ export const changeStatus = (task, currentStatus) => {
 
 export const isDateLessThanToday = (isoDate) => {
     const passedDate = new Date(isoDate);
+
     const today = new Date();
-    return passedDate < today;
+
+    const passedYear = passedDate.getFullYear();
+    const passedMonth = passedDate.getMonth();
+    const passedDay = passedDate.getDate();
+
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth();
+    const todayDay = today.getDate();
+
+    return passedYear < todayYear || passedMonth < todayMonth || passedDay < todayDay;
 }
