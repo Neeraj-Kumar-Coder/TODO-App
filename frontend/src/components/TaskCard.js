@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import '../styles/TaskCard.css';
 import { formatISOToCustomString, getRelativeDateString, getStatusColumn, getStatusColumnButtonText, isDateLessThanToday } from '../methods/helperMethods';
 import taskContext from '../context/taskContext';
 import { motion } from 'framer-motion';
 import { riseUpVariant } from '../variants/motionVariants';
+import '../styles/TaskCard.css';
 
 const TaskCard = ({ task, index }) => {
     const { title, startDate, endDate, status } = task;
-    const { deleteATask, changeTaskStatus, triggerToast, setModalIndex, toggleEditModal, changeInitialTask, setViewModalData, setShowViewModal } = useContext(taskContext);
+    const { deleteATask, changeTaskStatus, triggerToast, setModalIndex, configureTaskModal, changeInitialTask, setViewModalData, setShowViewModal } = useContext(taskContext);
 
     const statusColumn = getStatusColumn(status)
     const buttonText = getStatusColumnButtonText(statusColumn);
@@ -17,7 +17,7 @@ const TaskCard = ({ task, index }) => {
     const editATask = () => {
         changeInitialTask(task)
         setModalIndex(index);
-        toggleEditModal(false);
+        configureTaskModal(false, true);
     }
 
     const viewHandler = () => {

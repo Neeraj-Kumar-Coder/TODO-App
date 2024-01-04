@@ -1,6 +1,4 @@
 import Navbar from './components/Navbar';
-import './App.css';
-import './styles/Base.css';
 import TaskStatusTitle from './components/TaskStatusTitle';
 import TaskCard from './components/TaskCard';
 import { useContext, useEffect } from 'react';
@@ -11,28 +9,33 @@ import taskContext from './context/taskContext';
 import ViewModal from './components/ViewModal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { containerVariant, fadeSlideInFromLeftVariant, sinkDownVariant } from './variants/motionVariants';
+import './App.css';
+import './styles/Base.css';
 
 function App() {
-  const { tasks, setTasks, showToast, message, showCreateAndEditModal, forCreation, modalIndex, initialTaskConfig, fetchAllTasks, toggleEditModal, showViewModal } = useContext(taskContext);
+  const { tasks, setTasks, showToast, message, showCreateAndEditModal, forCreation, modalIndex, initialTaskConfig, fetchAllTasks, configureTaskModal, showViewModal, showLoader, setShowLoader } = useContext(taskContext);
 
   useEffect(() => {
     async function init() {
-      setTasks(await fetchAllTasks());
+      try {
+        setShowLoader(true);
+        setTasks(await fetchAllTasks());
+      }
+      catch (e) {
+        console.error(e);
+      }
     }
 
-    try {
-      init();
-    } catch (e) {
-      console.error(e);
-    }
+    init();
 
   }, []);
 
   return (
     <>
-      {!tasks ? <Loader /> : <>
+      {showLoader && <Loader />}
+      {tasks && <>
         <Navbar />
-        <AnimatePresence mode='wait'>
+        <AnimatePresence>
           {showToast && <Toast key="toast-main" message={message} />}
           {showCreateAndEditModal &&
             <TaskModal key="task-modal-main" forCreation={forCreation}
@@ -58,7 +61,7 @@ function App() {
             }
           </AnimatePresence>
 
-          <motion.span key="create-task-button-main" className='create-task-button secondary-glassify' variants={fadeSlideInFromLeftVariant} onClick={() => toggleEditModal(true)}>+ Create Task</motion.span>
+          <motion.span key="create-task-button-main" className='create-task-button secondary-glassify' variants={fadeSlideInFromLeftVariant} onClick={() => configureTaskModal(true, true)}>+ Create Task</motion.span>
         </motion.div>
       </>}
     </>

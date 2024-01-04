@@ -1,7 +1,7 @@
 import React from 'react';
-import '../styles/Toast.css';
 import { motion } from 'framer-motion';
 import { toastVariant } from '../variants/motionVariants';
+import '../styles/Toast.css';
 
 const Toast = ({ message }) => {
     return (

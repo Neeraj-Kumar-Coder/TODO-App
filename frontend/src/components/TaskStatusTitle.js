@@ -1,7 +1,7 @@
 import React from 'react';
-import '../styles/TaskStatusTitle.css';
 import { motion } from 'framer-motion';
 import { fadeSlideInFromLeftVariant } from '../variants/motionVariants';
+import '../styles/TaskStatusTitle.css';
 
 const TaskStatusTitle = ({ title, statusColumn }) => {
     let statusImageLink = "";

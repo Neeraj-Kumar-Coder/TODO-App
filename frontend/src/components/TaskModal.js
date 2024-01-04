@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import '../styles/TaskModal.css';
 import taskContext from '../context/taskContext';
 import { motion } from 'framer-motion';
 import { fadeInVariant, modalVariant } from '../variants/motionVariants';
+import '../styles/TaskModal.css';
 
 const TaskModal = ({ forCreation }) => {
-    const { createTask, toggleEditModal, triggerToast, updateTask, modalIndex, initialTaskConfig, setInitialTaskConfig, tasks } = useContext(taskContext);
+    const { createTask, configureTaskModal, triggerToast, updateTask, modalIndex, initialTaskConfig, setInitialTaskConfig, tasks, setShowLoader } = useContext(taskContext);
     const titleRef = useRef();
     const descriptionRef = useRef();
     const startDateRef = useRef();
@@ -19,14 +19,14 @@ const TaskModal = ({ forCreation }) => {
         endDateRef.current.value = initialTaskConfig.initialEndDate;
     }, []);
 
-    const clearAndCloseModal = () => {
+    const clearAndCloseModal = (creation, showModal) => {
         setInitialTaskConfig({
             initialTitle: "",
             initialDescription: "",
             initialStartDate: "",
             initialEndDate: ""
         });
-        toggleEditModal();
+        configureTaskModal(creation, showModal);
     }
 
     const createNewTask = () => {
@@ -35,44 +35,37 @@ const TaskModal = ({ forCreation }) => {
             return;
         }
 
+        setShowLoader(true);
         const title = titleRef.current.value;
         const description = descriptionRef.current.value;
         const startDate = new Date(startDateRef.current.value).toISOString();
         const endDate = new Date(endDateRef.current.value).toISOString();
 
         const task = { title, description, startDate, endDate };
-        try {
-            createTask(task);
-        } catch (e) {
-            console.error(e);
-        }
-        clearAndCloseModal();
+        createTask(task);
+        clearAndCloseModal(true, false);
     }
 
     const updateTheTask = () => {
-        console.log(tasks, modalIndex);
         if (!titleRef.current.value || !descriptionRef.current.value || !startDateRef.current.value || !endDateRef.current.value) {
             triggerToast("Please fill all the fields!");
             return;
         }
 
+        setShowLoader(true);
         const title = titleRef.current.value;
         const description = descriptionRef.current.value;
         const startDate = new Date(startDateRef.current.value).toISOString();
         const endDate = new Date(endDateRef.current.value).toISOString();
 
         const task = { ...tasks[modalIndex], title, description, startDate, endDate };
-        try {
-            updateTask(modalIndex, task);
-        } catch (e) {
-            console.error(e);
-        }
-        clearAndCloseModal();
+        updateTask(modalIndex, task);
+        clearAndCloseModal(true, false);
     }
 
     return (
         <>
-            <motion.div initial="hidden" animate="visible" exit="exit" ref={overlay} variants={fadeInVariant} className='task-modal-backdrop' onClick={clearAndCloseModal}></motion.div>
+            <motion.div initial="hidden" animate="visible" exit="exit" ref={overlay} variants={fadeInVariant} className='backdrop' onClick={clearAndCloseModal}></motion.div>
             <motion.div initial="hidden" animate="visible" exit="exit" variants={modalVariant} className='task-modal secondary-glassify'>
                 <h1>{forCreation ? "Create A New Task" : "Edit Task"}</h1>
 

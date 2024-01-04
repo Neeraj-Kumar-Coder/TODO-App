@@ -10,7 +10,7 @@ const TaskState = (props) => {
     const [showViewModal, setShowViewModal] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [forCreation, setForCreation] = useState(true);
-    const [showLoader, setShowLoader] = useState(true);
+    const [showLoader, setShowLoader] = useState(false);
     const [modalIndex, setModalIndex] = useState(-1);
     const [initialTaskConfig, setInitialTaskConfig] = useState({ initialTitle: "", initialDescription: "", initialStartDate: "", initialEndDate: "" });
     const [viewModalData, setViewModalData] = useState({ title: "", description: "", startDate: "", endDate: "", status: "" });
@@ -18,54 +18,99 @@ const TaskState = (props) => {
     const BASE_URL = "http://localhost:8080/api";
 
     const fetchAllTasks = async () => {
-        const response = await axios.get(`${BASE_URL}/fetch_all_tasks`);
-        return response.data;
+        try {
+            const response = await axios.get(`${BASE_URL}/fetch_all_tasks`);
+            setShowLoader(false);
+            return response.data;
+        }
+        catch (e) {
+            throw new Error(`Unable to fetch tasks: ${e.message}`);
+        }
     }
 
     const createNewTask = async (task) => {
-        return (await axios.post(`${BASE_URL}/create_task`, task)).data;
+        try {
+            const data = (await axios.post(`${BASE_URL}/create_task`, task)).data;
+            setShowLoader(false);
+            return data;
+        }
+        catch (e) {
+            throw new Error(`Unable to create task: ${e.message}`);
+        }
     }
 
     const deleteTaskById = async (task) => {
-        await axios.delete(`${BASE_URL}/delete_task/${task.id}`);
+        try {
+            await axios.delete(`${BASE_URL}/delete_task/${task.id}`);
+            setShowLoader(false);
+        }
+        catch (e) {
+            throw new Error(`Unable to delete the task: ${e.message}`)
+        }
     }
 
     const updateTaskById = async (task) => {
-        await axios.put(`${BASE_URL}/update_task/${task.id}`, task);
+        try {
+            await axios.put(`${BASE_URL}/update_task/${task.id}`, task);
+            setShowLoader(false);
+        }
+        catch (e) {
+            throw new Error(`Unable to update the task: ${e.message}`)
+        }
     }
 
-    const changeTaskStatus = (task, currentStatus) => {
+    const changeTaskStatus = async (task, currentStatus) => {
         const newTask = changeStatus(task, currentStatus);
-        updateTaskById(newTask);
-
-        const tasksCopy = JSON.parse(JSON.stringify(tasks));
-        const index = tasksCopy.indexOf(task);
-        tasksCopy[index] = newTask;
-        setTasks(tasksCopy);
+        try {
+            await updateTaskById(newTask);
+            const tasksCopy = JSON.parse(JSON.stringify(tasks));
+            const index = tasksCopy.indexOf(task);
+            tasksCopy[index] = newTask;
+            setTasks(tasksCopy);
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
 
-    const deleteATask = (task) => {
-        deleteTaskById(task);
-        setTasks((prev) => prev.filter((current) => current !== task));
+    const deleteATask = async (task) => {
+        setShowLoader(true);
+        try {
+            await deleteTaskById(task);
+            setTasks((prev) => prev.filter((current) => current !== task));
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
 
     const createTask = async (task) => {
-        const newTask = await createNewTask(task);
-        const tasksCopy = JSON.parse(JSON.stringify(tasks));
-        tasksCopy.push(newTask);
-        setTasks(tasksCopy);
+        try {
+            const newTask = await createNewTask(task);
+            const tasksCopy = JSON.parse(JSON.stringify(tasks));
+            tasksCopy.push(newTask);
+            setTasks(tasksCopy);
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
 
-    const updateTask = (index, newTask) => {
-        updateTaskById(newTask);
-        const tasksCopy = JSON.parse(JSON.stringify(tasks));
-        tasksCopy[index] = newTask;
-        setTasks(tasksCopy);
+    const updateTask = async (index, newTask) => {
+        try {
+            await updateTaskById(newTask);
+            const tasksCopy = JSON.parse(JSON.stringify(tasks));
+            tasksCopy[index] = newTask;
+            setTasks(tasksCopy);
+        }
+        catch (e) {
+            console.error(e);
+        }
     }
 
-    const toggleEditModal = (creation) => {
+    const configureTaskModal = (creation = true, showModal = false) => {
         setForCreation(creation);
-        setShowCreateAndEditModal(!showCreateAndEditModal);
+        setShowCreateAndEditModal(showModal);
     }
 
     const triggerToast = (msg, duration = 3000) => {
@@ -108,7 +153,7 @@ const TaskState = (props) => {
             deleteATask,
             createTask,
             updateTask,
-            toggleEditModal,
+            configureTaskModal,
             triggerToast,
             changeInitialTask,
             showViewModal,

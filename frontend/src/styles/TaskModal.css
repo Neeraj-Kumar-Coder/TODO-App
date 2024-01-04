@@ -1,4 +1,4 @@
-.task-modal-backdrop {
+.backdrop {
     position: fixed;
     z-index: 998;
     top: 0;
